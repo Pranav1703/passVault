@@ -1,33 +1,30 @@
-import Versions from './components/Versions'
-import electronLogo from './assets/electron.svg'
+import { useState } from "react"
 
-function App(): JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
+
+function App(){
+  
+  const oneWayPattern = (): void => window.api.ping()
+
+  const [path,setPath] = useState<string>("")
+
+  const twoWayPattern = async():Promise<void> =>{
+    const filePath = await window.api.openFile()
+    setPath(filePath)
+  }
 
   return (
     <>
-      <img alt="logo" className="logo" src={electronLogo} />
-      <div className="creator">Powered by electron-vite</div>
-      <div className="text">
-        Build an Electron app with <span className="react">React</span>
-        &nbsp;and <span className="ts">TypeScript</span>
-      </div>
       <p className="tip">
-        Please try pressing <code>F12</code> to open the devTool
+        <code>F12</code> to open the devTool
       </p>
-      <div className="actions">
-        <div className="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
-        </div>
-        <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
-        </div>
-      </div>
-      <Versions></Versions>
+      <button onClick={oneWayPattern}>
+            Send IPC Ping
+      </button>
+
+      <button onClick={twoWayPattern}>
+        OPen file
+      </button>
+      File path: <strong id="filePath">{path}</strong>
     </>
   )
 }
