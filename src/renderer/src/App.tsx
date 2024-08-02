@@ -1,30 +1,19 @@
-import { useState } from "react"
+import Testing from "./components/Testing"
+import {HashRouter,Routes,Route} from "react-router-dom"
 
-
+import Navigate from "./components/navigate"
 function App(){
-  
-  const oneWayPattern = (): void => window.api.ping()
 
-  const [path,setPath] = useState<string>("")
-
-  const twoWayPattern = async():Promise<void> =>{
-    const filePath = await window.api.openFile()
-    setPath(filePath)
-  }
 
   return (
     <>
-      <p className="tip">
-        <code>F12</code> to open the devTool
-      </p>
-      <button onClick={oneWayPattern}>
-            Send IPC Ping
-      </button>
-
-      <button onClick={twoWayPattern}>
-        OPen file
-      </button>
-      File path: <strong id="filePath">{path}</strong>
+      <HashRouter>
+        <Routes>
+          <Route path="/testing" element={<Testing/>} />
+          <Route path="/" element={<Navigate/>} />
+        </Routes>
+      </HashRouter>
+      
     </>
   )
 }
