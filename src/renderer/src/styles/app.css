@@ -1,0 +1,13 @@
+
+
+*{
+    color: azure;
+    /* background-color: black; */
+    
+}
+
+@font-face {
+    font-family: Silkscreen;
+    font-weight: 400;
+    src: url('../assets//fonts/Silkscreen-Regular.ttf');
+} 

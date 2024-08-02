@@ -14,6 +14,8 @@ async function handleFileOpen ():Promise<string> {
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
+    // width: 800,
+    // height:600,
     width: 900,
     height: 670,
     show: false,
@@ -23,7 +25,11 @@ function createWindow(): void {
       preload: join(__dirname, '../preload/index.js'),
       contextIsolation:true,
       sandbox: false
-    }
+      
+    },
+    fullscreenable: false,
+    maximizable: false,
+    resizable:false
   })
 
   mainWindow.on('ready-to-show', () => {
