@@ -14,7 +14,6 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import Collection from './Collection'
-import { eventNames } from 'process'
 
 const SideBar = () => {
 
