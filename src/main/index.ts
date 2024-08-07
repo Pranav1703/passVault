@@ -2,6 +2,8 @@ import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { StartServer } from './server/server'
+
 
 async function handleFileOpen ():Promise<string> {
   const { canceled, filePaths } = await dialog.showOpenDialog({})
@@ -48,6 +50,8 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  StartServer()
 }
 
 // This method will be called when Electron has finished
