@@ -6,7 +6,7 @@ export const StartServer = ()=>{
     app.use(express.json())
 
     app.get("/",(req,res)=>{
-        // do
+        
     })
 
     app.listen("3000",()=>{

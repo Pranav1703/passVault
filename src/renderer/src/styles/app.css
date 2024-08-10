@@ -10,4 +10,25 @@
     font-family: Silkscreen;
     font-weight: 400;
     src: url('../assets//fonts/Silkscreen-Regular.ttf');
-} 
+}
+
+
+::-webkit-scrollbar{
+    width: 5px;
+    
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(104, 103, 103); 
+  }
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(165, 164, 164); 
+    /* border-radius: 0px; */
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(107, 161, 161); 
+  }

@@ -21,9 +21,10 @@ const SideBar = () => {
   const [newCollection,setNewCollection] = useState<string>("")
   const [collectionList,setCollectionList] = useState<Array<string>>([])
 
+
   const createNewCollection = ()=>{
-    setCollectionList([...collectionList,newCollection])
-    onClose;
+    setCollectionList([...collectionList,newCollection]);
+
   }
 
   return (
@@ -46,14 +47,16 @@ const SideBar = () => {
       <Box
       borderBottom={"4px solid grey"}
       >
-        
         <Button
         w={"100%"}
         borderRadius={0}
-        onClick={onOpen}
+        onClick={()=>{
+          onOpen()
+        }}
         >
           create Collection
         </Button>
+        
         <Modal
           isCentered
           onClose={onClose}
@@ -61,7 +64,7 @@ const SideBar = () => {
           motionPreset='slideInBottom'
 
         >
-          <ModalOverlay />
+          <ModalOverlay backdropFilter={"auto"} backdropBlur={"25px"}/>
           <ModalContent
           borderRadius={"0"}
           bg={"grey"}
@@ -86,6 +89,7 @@ const SideBar = () => {
                 borderRadius={0}
                 minLength={3}
                 onChange={(event)=>setNewCollection(event.target.value)}
+                maxLength={26}
                 />
               <Button marginRight={0} borderRadius={0} onClick={createNewCollection}>+</Button>
             </ModalBody>
@@ -96,18 +100,27 @@ const SideBar = () => {
 
         <Text
         textAlign={"center"}
-        >Collections</Text>
+        marginTop={"5px"}
+        >
+          Collections
+        </Text>
       </Box>
-      {
-        collectionList.length>0?(
-          collectionList.map((val,index=0)=>(
-              <Collection key={index+1} collectionName={val} />
+      <Box
+      display={"flex"}
+      overflowY={"scroll"}
+      flexDirection={"column"}
+      >
+        {
+          collectionList.length>0?(
+            collectionList.map((val,index=0)=>(
+                <Collection key={index+1} collectionName={val} setList={setCollectionList} id={index}/>
+              )
             )
+          ):(
+            null
           )
-        ):(
-          null
-        )
-      }
+        }
+      </Box>
     </Box>
   )
 }

@@ -52,6 +52,7 @@ function createWindow(): void {
   }
 
   StartServer()
+  
 }
 
 // This method will be called when Electron has finished
