@@ -2,7 +2,7 @@ import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { StartServer } from './server/server'
+import { registerIpcHandlers } from './ipcHandlers'
 
 
 async function handleFileOpen ():Promise<string> {
@@ -51,8 +51,6 @@ function createWindow(): void {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
 
-  StartServer()
-  
 }
 
 // This method will be called when Electron has finished
@@ -71,6 +69,8 @@ app.whenReady().then(() => {
 
   ipcMain.on('ping', () => console.log('response: pong'))
   ipcMain.handle("dialog:openFile",handleFileOpen)
+  registerIpcHandlers()
+
   createWindow()
 
   app.on('activate', function () {

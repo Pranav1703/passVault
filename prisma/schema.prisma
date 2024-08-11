@@ -11,7 +11,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DB_URL")
 }
 
 // model Credential{
@@ -35,5 +35,5 @@ datasource db {
 model Test{
   id          Int @id @default(autoincrement())
   stringData  String
-  number      Int
+  number      BigInt
 }

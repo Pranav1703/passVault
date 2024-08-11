@@ -1,8 +1,13 @@
+import { Box } from "@chakra-ui/react"
+import Testing from "./Testing"
 
 
 const InfoBox = () => {
   return (
-    <div>InfoBox</div>
+    <Box>
+      InfoBox
+      <Testing/>
+    </Box>
   )
 }
 

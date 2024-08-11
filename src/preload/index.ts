@@ -9,8 +9,11 @@ import { contextBridge, ipcRenderer } from 'electron'
 if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld('api', {
+
       ping: ()=>ipcRenderer.send("ping"),
-      openFile: ()=>ipcRenderer.invoke("dialog:openFile")
+      Create: (n:number,s:string)=>ipcRenderer.invoke("test-db-insert",n,s),
+      GetData: ()=> ipcRenderer.invoke("test-db-showAll")
+
     })
   } catch (error) {
     console.error(error)

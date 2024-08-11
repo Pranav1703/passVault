@@ -2,35 +2,37 @@ import { useState } from "react"
 import {
     Button
 } from "@chakra-ui/react"
-import { Navigate, useNavigate } from "react-router-dom"
 
 const Testing = () => {
-    const oneWayPattern = (): void => window.api.ping()
 
-    const [path, setPath] = useState<string>("")
+  const [n,setN] = useState("")
+  const [s,setS] = useState("")
+
   
-    const twoWayPattern = async(): Promise<void> =>{
-      const filePath = await window.api.openFile()
-      setPath(filePath)
-    }
-    const nav = useNavigate()
-  
+  const create = (): void =>{
+    window.api.Create(Number(n),s)
+    setS("")
+    setN("")
+  }
+  const retreiveAllData = (): void =>{
+    window.api.GetData()
+  }
+
     return (
       <>
-        <p className="tip">
-          <code>F12</code> to open the devTool
-        </p>
-        <Button onClick={oneWayPattern}>
-              Send IPC Ping
+      <br />
+        <label htmlFor="n">number: </label><input type="text" value={n} name="n" onChange={(event)=>setN(event.target.value)}  style={{"color":"black"}}/>
+        <br />
+        <label htmlFor="s">string: </label><input type="text" value={s} name="s" onChange={(event)=>setS(event.target.value)} style={{"color":"black"}}/>
+        <br />
+        <Button onClick={create}>
+              create
         </Button>
   
-        <Button onClick={twoWayPattern}>
-          OPen file
+        <Button onClick={retreiveAllData}>
+          log data
         </Button>
-        File path: <strong id="filePath">{path}</strong>
-        <Button onClick={()=>nav("/")}>
-            back
-        </Button>
+
       </>
     )
 }
