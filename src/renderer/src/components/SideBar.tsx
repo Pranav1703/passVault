@@ -9,11 +9,15 @@ import {
     ModalFooter,
     ModalHeader,
     ModalOverlay,
+    Tab,
+    TabList,
+    Tabs,
     Text,
     useDisclosure,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import Collection from './Collection'
+
 
 export type collection = {
   id: number
@@ -134,6 +138,17 @@ const SideBar = () => {
       overflowY={"scroll"}
       flexDirection={"column"}
       >
+        <Tabs
+        >
+          <TabList
+                    display={"flex"}
+                    flexDirection={"column"}
+          >
+            <Tab w={"100%"} _selected={{ color: 'white', bg: 'blue.500' }}>test1</Tab>
+            <Tab _selected={{ color: 'white', bg: 'green.400' }}>test2</Tab>
+          </TabList>
+
+        </Tabs>
         {
           collectionList?.length>0?(
             collectionList.map((val)=>(
