@@ -1,8 +1,9 @@
 import { Box } from '@chakra-ui/react'
+import { collection } from './SideBar'
 
 type CollectionProps = {
     collectionName: string
-    setList: React.Dispatch<React.SetStateAction<string[]>>
+    setList: React.Dispatch<React.SetStateAction<collection[]>>
     id:number
 }
 

@@ -1,14 +1,14 @@
 import { Box } from "@chakra-ui/react"
-import Testing from "./Testing"
 
 
-const InfoBox = () => {
+
+const CredBox = () => {
   return (
     <Box>
       InfoBox
-      <Testing/>
+      
     </Box>
   )
 }
 
-export default InfoBox
+export default CredBox

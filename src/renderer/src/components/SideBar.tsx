@@ -12,20 +12,44 @@ import {
     Text,
     useDisclosure,
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Collection from './Collection'
+
+export type collection = {
+  id: number
+  name: string
+}
 
 const SideBar = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [newCollection,setNewCollection] = useState<string>("")
-  const [collectionList,setCollectionList] = useState<Array<string>>([])
+  const [newCollectionName,setNewCollectionName] = useState<string>("")
+  const [collectionList,setCollectionList] = useState<Array<collection>>([])
 
 
-  const createNewCollection = ()=>{
-    setCollectionList([...collectionList,newCollection]);
+  const createNewCollection = async()=>{
+    
+    try {
+      await window.api.createCollection(newCollectionName)
+      await getAllCollections()
+    } catch (error) {
+      console.log("error when trying to create a collection: ",error)
+    }
+  }
+
+  const getAllCollections = async()=>{
+    const allCollections = await window.api.getAllCollections()
+    console.log("retieved: ",allCollections)
+    setCollectionList(allCollections)
 
   }
+
+  useEffect(() => {
+    getAllCollections()
+      .then(()=>console.log("called getAllCollection"))
+      .catch(err=>console.log(err))
+  }, [collectionList.length])
+  
 
   return (
     <Box
@@ -88,7 +112,7 @@ const SideBar = () => {
                 border={"1px solid"} 
                 borderRadius={0}
                 minLength={3}
-                onChange={(event)=>setNewCollection(event.target.value)}
+                onChange={(event)=>setNewCollectionName(event.target.value)}
                 maxLength={26}
                 />
               <Button marginRight={0} borderRadius={0} onClick={createNewCollection}>+</Button>
@@ -111,9 +135,9 @@ const SideBar = () => {
       flexDirection={"column"}
       >
         {
-          collectionList.length>0?(
-            collectionList.map((val,index=0)=>(
-                <Collection key={index+1} collectionName={val} setList={setCollectionList} id={index}/>
+          collectionList?.length>0?(
+            collectionList.map((val)=>(
+                <Collection key={val.id} collectionName={val.name} setList={setCollectionList} id={val.id}/>
               )
             )
           ):(

@@ -11,17 +11,19 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('api', {
 
       ping: ()=>ipcRenderer.send("ping"),
-      Create: (n:number,s:string)=>ipcRenderer.invoke("test-db-insert",n,s),
-      GetData: ()=> ipcRenderer.invoke("test-db-showAll")
-
+      // Create: (n:number,s:string)=>ipcRenderer.invoke("test-db-insert",n,s),
+      // GetData: ()=> ipcRenderer.invoke("test-db-showAll")
+      createCollection: (collectionName:string)=>ipcRenderer.invoke("create-collection",collectionName),
+      // deleteCollection: ()=>ipcRenderer.invoke("delete-collection"),
+      getAllCollections: ()=> ipcRenderer.invoke("get-collections"),
     })
   } catch (error) {
     console.error(error)
   }
 } 
-// else {
-//   // @ts-ignore (define in dts)
-//   window.electron = electronAPI
-//   // @ts-ignore (define in dts)
-//   window.api = api
-// }
+else {
+  // @ts-ignore (define in dts)
+  window.electron = electronAPI
+  // @ts-ignore (define in dts)
+  window.api = api
+}

@@ -1,5 +1,5 @@
 
-import InfoBox from './InfoBox'
+import CredBox from './CredBox'
 import SideBar from './SideBar'
 import { Box } from '@chakra-ui/react'
 
@@ -15,7 +15,7 @@ const Home = () => {
     display={"flex"}
     >
         <SideBar/>
-        <InfoBox/>
+        <CredBox/>
     </Box>
   )
 }
