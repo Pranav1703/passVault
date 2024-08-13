@@ -139,17 +139,28 @@ const SideBar = () => {
       flexDirection={"column"}
       >
         <Tabs
+        m={0}
+        p={0}
         >
           <TabList
-                    display={"flex"}
-                    flexDirection={"column"}
+            display={"flex"}
+            flexDirection={"column"}
           >
-            <Tab w={"100%"} _selected={{ color: 'white', bg: 'blue.500' }}>test1</Tab>
-            <Tab _selected={{ color: 'white', bg: 'green.400' }}>test2</Tab>
+            {
+              collectionList?.length>0?(
+                collectionList.map((val)=>(
+                    <Tab _selected={{ color: 'white', bg: 'grey' }}>
+                      <Collection key={val.id} collectionName={val.name} setList={setCollectionList} id={val.id}/>
+                    </Tab>
+                  )
+                )
+              ):(
+                null
+              )
+            }
           </TabList>
-
         </Tabs>
-        {
+        {/* {
           collectionList?.length>0?(
             collectionList.map((val)=>(
                 <Collection key={val.id} collectionName={val.name} setList={setCollectionList} id={val.id}/>
@@ -158,7 +169,7 @@ const SideBar = () => {
           ):(
             null
           )
-        }
+        } */}
       </Box>
     </Box>
   )

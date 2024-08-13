@@ -14,8 +14,14 @@ const btnStyle = {
 
 const Collection = ({collectionName,setList,id}:CollectionProps) => {
 
-  const deleteHandler = ()=>{
-    setList((prevList)=>prevList.filter((_,index)=> index!=id))
+  const deleteHandler = async()=>{
+    
+    try {
+      await window.api.deleteCollection(id)
+    } catch (error) {
+      console.log("error :",error)
+    }
+    setList((prevList)=>prevList.filter((val)=> val.id!=id))
   }
 
   return (
@@ -29,6 +35,7 @@ const Collection = ({collectionName,setList,id}:CollectionProps) => {
     gridTemplateRows={"1fr"}
     p={1}
     wordBreak={"break-all"}
+    w={"100%"}
     >
         <button>{collectionName}</button>
         <Box
@@ -36,7 +43,7 @@ const Collection = ({collectionName,setList,id}:CollectionProps) => {
         justifyContent={"flex-end"}
         alignItems={"center"}
         >
-          <button onClick={deleteHandler} style={btnStyle}>X</button>
+          <div onClick={deleteHandler} style={btnStyle}>X</div>
         </Box>
 
     </Box>

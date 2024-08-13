@@ -14,7 +14,7 @@ if (process.contextIsolated) {
       // Create: (n:number,s:string)=>ipcRenderer.invoke("test-db-insert",n,s),
       // GetData: ()=> ipcRenderer.invoke("test-db-showAll")
       createCollection: (collectionName:string)=>ipcRenderer.invoke("create-collection",collectionName),
-      // deleteCollection: ()=>ipcRenderer.invoke("delete-collection"),
+      deleteCollection: (deleteId:number)=>ipcRenderer.invoke("delete-collection",deleteId),
       getAllCollections: ()=> ipcRenderer.invoke("get-collections"),
     })
   } catch (error) {

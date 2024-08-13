@@ -34,13 +34,13 @@ export const registerCollectionIpcHandlers = ()=>{
         }
     })
 
-    // ipcMain.handle("delete-collection",async()=>{
-    //     const deleted = await prisma.collection.delete({
-    //         where:{
-                
-    //         }
-    //     })
-    // })
+    ipcMain.handle("delete-collection",async(_event,deleteId)=>{
+        const deleted = await prisma.collection.delete({
+            where:{
+                id: deleteId
+            }
+        })
+    })
 
     ipcMain.handle("get-collections",async():Promise<collection[]>=>{
         try {
