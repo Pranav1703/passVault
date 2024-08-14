@@ -40,6 +40,7 @@ export const registerCollectionIpcHandlers = ()=>{
                 id: deleteId
             }
         })
+        console.log("deleted :",deleted)
     })
 
     ipcMain.handle("get-collections",async():Promise<collection[]>=>{

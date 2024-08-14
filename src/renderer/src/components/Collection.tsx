@@ -33,14 +33,14 @@ const Collection = ({collectionName,setList,id}:CollectionProps) => {
     wordBreak={"break-all"}
     w={"100%"}
     >
-        <p>{collectionName}</p>
-        <Box
-        display={"flex"}
-        justifyContent={"flex-end"}
-        alignItems={"center"}
-        >
-          <div onClick={deleteHandler} >X</div>
-        </Box>
+      <p>{collectionName}</p>
+      <Box
+      display={"flex"}
+      justifyContent={"flex-end"}
+      alignItems={"center"}
+      >
+        <div onClick={deleteHandler} >X</div>
+      </Box>
 
     </Box>
   )

@@ -17,6 +17,9 @@ import {
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import Collection from './Collection'
+import CredBox from './CredBox'
+import CreateCollectionModal from './CreateCollectionBtn'
+import CreateCredentialBtn from './CreateCredentialBtn'
 
 
 export type collection = {
@@ -26,10 +29,10 @@ export type collection = {
 
 const SideBar = () => {
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  // const { isOpen, onOpen, onClose } = useDisclosure()
   const [newCollectionName,setNewCollectionName] = useState<string>("")
   const [collectionList,setCollectionList] = useState<Array<collection>>([])
-
+  const [currId,setCurrId] = useState<number>(-1)
 
   const createNewCollection = async()=>{
     
@@ -57,110 +60,73 @@ const SideBar = () => {
 
   return (
     <Box
-    w={"23%"}
-    h={"full"}
-    background={"#313335"}
-    p={"0"} 
-    paddingLeft={"1px"}
+    w={"100%"}
+    bg={"#232423"}
     display={"flex"}
-    flexDirection={"column"}
     >
       <Box
-      fontSize={"25px"}
-      p={"6px"}
-      border={"10px solid grey"}
-      >
-        <h1>PASSVAULT</h1>
-      </Box>
-      <Box
-      borderBottom={"4px solid grey"}
-      >
-        <Button
-        w={"100%"}
-        borderRadius={0}
-        onClick={()=>{
-          onOpen()
-        }}
-        >
-          create Collection
-        </Button>
-        
-        <Modal
-          isCentered
-          onClose={onClose}
-          isOpen={isOpen}
-          motionPreset='slideInBottom'
-
-        >
-          <ModalOverlay backdropFilter={"auto"} backdropBlur={"25px"}/>
-          <ModalContent
-          borderRadius={"0"}
-          bg={"grey"}
-          w={"100vw"}
-          >
-            <ModalHeader textAlign={"center"} color={"grey"} padding={0}>Enter Collection Name</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody 
-            display={"flex"}
-            justifyContent={"center"}
-            >
-              <Input 
-                width={310} 
-                marginRight={0} 
-                p={0}
-                paddingLeft={"5px"}
-                placeholder='Enter New Collection name' 
-                bg={"whitesmoke"} 
-                color={"black"} 
-                fontFamily={"Silkscreen"} 
-                border={"1px solid"} 
-                borderRadius={0}
-                minLength={3}
-                onChange={(event)=>setNewCollectionName(event.target.value)}
-                maxLength={26}
-                />
-              <Button marginRight={0} borderRadius={0} onClick={createNewCollection}>+</Button>
-            </ModalBody>
-            <ModalFooter>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-
-        <Text
-        textAlign={"center"}
-        marginTop={"5px"}
-        >
-          Collections
-        </Text>
-      </Box>
-      <Box
+      w={"25%"}
+      h={"full"}
+      background={"#313335"}
+      p={"0"} 
+      paddingLeft={"1px"}
       display={"flex"}
-      overflowY={"scroll"}
       flexDirection={"column"}
       >
-        <Tabs
-        m={0}
-        p={0}
+        <Box
+        fontSize={"25px"}
+        p={"6px"}
+        border={"15px solid grey"}
         >
-          <TabList
-            display={"flex"}
-            flexDirection={"column"}
-            borderBottom={"none"}
+          <h1>PASSVAULT</h1>
+        </Box>
+        <Box
+        borderBottom={"3px solid grey"}
+        >
+          <Text
+          textAlign={"center"}
+          marginTop={"8px"}
+          borderRight={"4px solid grey"}
           >
-            {
-              collectionList?.length>0?(
-                collectionList.map((val,index=0)=>(
-                    <Tab key={index++} _selected={{ color: 'white', bg: 'grey' }} p={1}>
-                      <Collection key={val.id} collectionName={val.name} setList={setCollectionList} id={val.id}/>
-                    </Tab>
+            Collections
+          </Text>
+        </Box>
+        <Box
+        display={"flex"}
+        overflowY={"scroll"}
+        flexDirection={"column"}
+        >
+          <Tabs
+          m={0}
+          p={0}
+          >
+            <TabList
+              display={"flex"}
+              flexDirection={"column"}
+              borderBottom={"none"}
+            >
+              {
+                collectionList?.length>0?(
+                  collectionList.map((val,index=0)=>(
+                      <Tab key={index++} _selected={{ color: 'white', bg: 'grey' }} p={1} onClick={()=>setCurrId(val.id)}>
+                        <Collection key={val.id} collectionName={val.name} setList={setCollectionList} id={val.id}/>
+                      </Tab>
+                    )
                   )
+                ):(
+                  null
                 )
-              ):(
-                null
-              )
-            }
-          </TabList>
-        </Tabs>
+              }
+            </TabList>
+          </Tabs>
+        </Box>
+      </Box>
+      <Box
+      w={"100%"}
+      >
+        <CreateCollectionModal setNewCollectionName={setNewCollectionName} createNewCollection={createNewCollection}/>
+        <CreateCredentialBtn />
+        <CredBox id={currId}/>
       </Box>
     </Box>
   )
