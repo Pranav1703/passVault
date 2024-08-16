@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import { collection } from './SideBar'
+import { collection } from './HomeContent'
 
 type CollectionProps = {
     collectionName: string

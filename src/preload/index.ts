@@ -16,6 +16,10 @@ if (process.contextIsolated) {
       createCollection: (collectionName:string)=>ipcRenderer.invoke("create-collection",collectionName),
       deleteCollection: (deleteId:number)=>ipcRenderer.invoke("delete-collection",deleteId),
       getAllCollections: ()=> ipcRenderer.invoke("get-collections"),
+
+      createCredential: (collectionId:number,name:string,email:string,username:string,password:string)=>ipcRenderer.invoke("create-cred",collectionId,name,email,username,password),
+      getAllCredentials: (collectionId:number)=>ipcRenderer.invoke("get-credentials",collectionId),
+      deleteCredential: ()=>{}
     })
   } catch (error) {
     console.error(error)

@@ -1,6 +1,6 @@
 
 import CredBox from './CredBox'
-import SideBar from './SideBar'
+import HomeContent from './HomeContent'
 import { Box } from '@chakra-ui/react'
 
 
@@ -13,7 +13,7 @@ const Home = () => {
     fontFamily={`"Silkscreen", sans-serif`}
     display={"flex"}
     >
-        <SideBar/>
+        <HomeContent/>
     </Box>
   )
 }

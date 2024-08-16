@@ -15,11 +15,13 @@ datasource db {
 }
 
 model credential{
-  id    Int @id @default(autoincrement())
-  email String   
-  password String
-  collection collection @relation(fields: [collectionId], references: [id])
-  collectionId Int 
+  id                Int @id @default(autoincrement())
+  name              String
+  email             String
+  username          String   
+  password          String
+  collection        collection @relation(fields: [collectionId], references: [id])
+  collectionId      Int 
 }
 
 model collection {

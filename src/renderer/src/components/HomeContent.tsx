@@ -1,25 +1,16 @@
 import { 
     Box, 
-    Button,
-    Input,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    ModalOverlay,
     Tab,
     TabList,
     Tabs,
     Text,
-    useDisclosure,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import Collection from './Collection'
 import CredBox from './CredBox'
 import CreateCollectionModal from './CreateCollectionBtn'
 import CreateCredentialBtn from './CreateCredentialBtn'
+import { error } from 'console'
 
 
 export type collection = {
@@ -27,12 +18,22 @@ export type collection = {
   name: string
 }
 
-const SideBar = () => {
+export type Credential = {
+  id: number
+  name: string
+  email: string
+  username: string
+  password: string
+  collectionId: number
+}
+
+const HomeContent = () => {
 
   // const { isOpen, onOpen, onClose } = useDisclosure()
   const [newCollectionName,setNewCollectionName] = useState<string>("")
   const [collectionList,setCollectionList] = useState<Array<collection>>([])
   const [currId,setCurrId] = useState<number>(-1)
+  const [credentialList,setCredentialList] = useState<Array<Credential>>([])
 
   const createNewCollection = async()=>{
     
@@ -51,11 +52,24 @@ const SideBar = () => {
 
   }
 
+  const getCredentails = async()=>{
+    const credentials = await window.api.getAllCredentials(currId)
+    setCredentialList(credentials)
+  }
+
   useEffect(() => {
     getAllCollections()
       .then(()=>console.log("called getAllCollection"))
       .catch(err=>console.log(err))
-  }, [collectionList.length])
+
+    
+    if(currId != -1){
+      getCredentails()
+        .then(()=>console.log("called getCred"))
+        .catch((err)=>console.log(err))
+    }
+
+  }, [collectionList.length,currId])
   
 
   return (
@@ -125,12 +139,12 @@ const SideBar = () => {
       w={"100%"}
       >
         <CreateCollectionModal setNewCollectionName={setNewCollectionName} createNewCollection={createNewCollection}/>
-        <CreateCredentialBtn />
-        <CredBox id={currId}/>
+        <CreateCredentialBtn collectionId={currId} getCreds={getCredentails}/>
+        <CredBox id={currId} credList={credentialList}/>
       </Box>
     </Box>
   )
 }
 
-export default SideBar
+export default HomeContent
 

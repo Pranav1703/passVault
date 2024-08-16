@@ -72,7 +72,6 @@ const CreateCollectionModal = ({setNewCollectionName,createNewCollection}:modelP
               </ModalFooter>
             </ModalContent>
         </Modal>
-
    </Box> 
   )
 }

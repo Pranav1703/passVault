@@ -10,11 +10,34 @@ import { Box,
     ModalOverlay,
     useDisclosure 
 } from "@chakra-ui/react"
+import { useState } from "react"
 
+type props = {
+  collectionId: number
+  getCreds: ()=>Promise<void>
+}
 
-const CreateCredentialBtn = () => {
+const CreateCredentialBtn = ({collectionId,getCreds}:props) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [name,setName] = useState<string>("")
+  const [username,setUsername] = useState<string>("")
+  const [password,setPassword] = useState<string>("")
+  const [email,setEmail] = useState<string>("") 
+
+  const createNewCredential = async()=>{
+    try {
+      await window.api.createCredential(collectionId,name,email,username,password)
+      getCreds()
+    } catch (error) {
+      console.log(error)
+    }
+    setEmail("")
+    setName("")
+    setPassword("")
+    setUsername("")
+
+  }
 
   return (
 
@@ -23,7 +46,9 @@ const CreateCredentialBtn = () => {
         w={"100%"}
         borderRadius={0}
         onClick={()=>{
-          onOpen()
+          if(collectionId!==-1){
+            onOpen()  
+          }
         }}
         border={"2px solid grey"}
         >
@@ -58,6 +83,36 @@ const CreateCredentialBtn = () => {
                     marginRight={0} 
                     p={0}
                     paddingLeft={"5px"}
+                    placeholder='Name' 
+                    bg={"whitesmoke"} 
+                    color={"black"} 
+                    fontFamily={"Silkscreen"} 
+                    border={"1px solid"} 
+                    borderRadius={0}
+                    minLength={3}
+                    value={name}
+                    onChange={(event)=>setName(event.target.value)}
+                    />
+                    <Input 
+                    width={370} 
+                    marginRight={0} 
+                    p={0}
+                    paddingLeft={"5px"}
+                    placeholder='Email' 
+                    bg={"whitesmoke"} 
+                    color={"black"} 
+                    fontFamily={"Silkscreen"} 
+                    border={"1px solid"} 
+                    borderRadius={0}
+                    minLength={3}
+                    value={email}
+                    onChange={(event)=>setEmail(event.target.value)}
+                    />
+                    <Input 
+                    width={370} 
+                    marginRight={0} 
+                    p={0}
+                    paddingLeft={"5px"}
                     placeholder='Username' 
                     bg={"whitesmoke"} 
                     color={"black"} 
@@ -65,7 +120,8 @@ const CreateCredentialBtn = () => {
                     border={"1px solid"} 
                     borderRadius={0}
                     minLength={3}
-                    onChange={(event)=>{}}
+                    value={username}
+                    onChange={(event)=>setUsername(event.target.value)}
                     />
                     <Input 
                     width={370} 
@@ -79,9 +135,10 @@ const CreateCredentialBtn = () => {
                     border={"1px solid"} 
                     borderRadius={0}
                     minLength={3}
-                    onChange={(event)=>{}}
+                    value={password}
+                    onChange={(event)=>setPassword(event.target.value)}
                     />
-                    <Button marginRight={0} borderRadius={0} onClick={()=>{}} w={370}>Save</Button>
+                    <Button marginRight={0} borderRadius={0} onClick={createNewCredential} w={370}>Save</Button>
                 </Box>
 
               </ModalBody>
