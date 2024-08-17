@@ -1,30 +1,26 @@
 import { Box } from "@chakra-ui/react"
 import { Credential } from "./HomeContent"
+import CredCard from "./credCard"
 
 type props = {
   id: number
   credList : Credential[]
+  getCreds: ()=>Promise<void>
 }
 
-const CredBox = ({id,credList}:props) => {
+const CredBox = ({id,credList,getCreds}:props) => {
   return (
     <Box
     overflowY={"scroll"}
-    border={"1px solid red"}
-    h={"100%"}
+    h={"87vh"}
+    w={"100%"}
+    display={"flex"}
+    flexWrap={"wrap"}
     >
-      Displays creds
-      for {id}
-      {credList.map((val)=>
-        <>
-        <br />
-          <p>{val.name}</p>
-          <p>{val.email}</p>
-          <p>{val.username}</p>
-          <p>{val.password}</p>
-          <br />
-        </>
+      {credList?.map((val)=>
+        <CredCard id={val.id} name={val.name} email={val.email} username={val.username} password={val.password} getCreds={getCreds}/>
       )}
+
     </Box>
   )
 }

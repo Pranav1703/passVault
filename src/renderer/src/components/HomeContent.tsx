@@ -10,7 +10,7 @@ import Collection from './Collection'
 import CredBox from './CredBox'
 import CreateCollectionModal from './CreateCollectionBtn'
 import CreateCredentialBtn from './CreateCredentialBtn'
-import { error } from 'console'
+
 
 
 export type collection = {
@@ -140,7 +140,7 @@ const HomeContent = () => {
       >
         <CreateCollectionModal setNewCollectionName={setNewCollectionName} createNewCollection={createNewCollection}/>
         <CreateCredentialBtn collectionId={currId} getCreds={getCredentails}/>
-        <CredBox id={currId} credList={credentialList}/>
+        <CredBox id={currId} credList={credentialList} getCreds={getCredentails}/>
       </Box>
     </Box>
   )

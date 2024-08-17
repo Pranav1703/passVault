@@ -12,7 +12,7 @@ type Credential = {
 
 export const registerCredIpcHandlers = ()=>{
     ipcMain.handle("create-cred",async(_event,collectionId:number,name:string,email:string,username:string,password:string)=>{
-
+        
         const cred = await prisma.credential.create({
             data:{
                 name: name,
@@ -27,7 +27,7 @@ export const registerCredIpcHandlers = ()=>{
 
     })
 
-    ipcMain.handle("get-credentials",async(_event,collectionId:number):Promise<Credential[] | null>=>{
+    ipcMain.handle("get-credentials",async(_event,collectionId:number):Promise<Credential[]>=>{
         const collection = await prisma.collection.findUnique({
             where:{
                 id:collectionId
@@ -36,16 +36,22 @@ export const registerCredIpcHandlers = ()=>{
                 creds: true
             }
         })
-        if(!collection){return null}
+        if(!collection){return []}
         
         if(collection?.creds){
             console.log("credentials with collection Id - ",collectionId," : ",collection.creds)
             return collection.creds
         }
-        return null
+        return []
     })
 
-    ipcMain.handle("delete-cred",async()=>{
-        
+    ipcMain.handle("delete-cred",async(_event,credId:number)=>{
+        const deletedCred = await prisma.credential.delete({
+            where:{
+                id:credId
+            }
+        })
+
+        console.log("delete credential: ",deletedCred)
     })
 }

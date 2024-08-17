@@ -20,7 +20,7 @@ model credential{
   email             String
   username          String   
   password          String
-  collection        collection @relation(fields: [collectionId], references: [id])
+  collection        collection @relation(fields: [collectionId], references: [id],onDelete: Cascade)
   collectionId      Int 
 }
 
