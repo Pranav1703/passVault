@@ -140,7 +140,7 @@ const HomeContent = () => {
       >
         <CreateCollectionModal setNewCollectionName={setNewCollectionName} createNewCollection={createNewCollection}/>
         <CreateCredentialBtn collectionId={currId} getCreds={getCredentails}/>
-        <CredBox id={currId} credList={credentialList} getCreds={getCredentails}/>
+        <CredBox credList={credentialList} getCreds={getCredentails}/>
       </Box>
     </Box>
   )

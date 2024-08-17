@@ -23,8 +23,6 @@ const Collection = ({collectionName,setList,id}:CollectionProps) => {
     <Box
     textAlign={"center"}
     margin={1}
-    // borderTop={"1px solid "}
-    // borderBottom={"1px solid"}
     border={"1px solid"}
     display={"grid"}
     gridTemplateColumns={"3fr 0.5fr"}
@@ -32,6 +30,8 @@ const Collection = ({collectionName,setList,id}:CollectionProps) => {
     p={1}
     wordBreak={"break-all"}
     w={"100%"}
+    fontFamily={`"VT323", monospace`}
+    fontSize={"20px"}
     >
       <p>{collectionName}</p>
       <Box

@@ -29,15 +29,16 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
     w={"50vh"}
     h={"33vh"}
     display={"grid"}
-    gridTemplateColumns={"0.5fr 1fr"}
+    gridTemplateColumns={"0.4fr 1fr"}
     gridTemplateRows={"1fr 1fr 1fr 1fr 1fr"}
     padding={"10px"}
     margin={"10px"}
+    fontFamily={`"VT323",monospace`}
     >
 
       <Text 
       textAlign={'center'} 
-      fontSize={"lg"} 
+      fontSize={"2xl"} 
       w={"100%"}
       gridArea={"1 / 1 / 2 / 3"}
       >
@@ -114,8 +115,9 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
         <Button
         borderRadius={0}
         onClick={deleteCred}
+        m={0}
         >
-          delete
+          Delete
         </Button>
       </Box>
     </Box>

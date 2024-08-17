@@ -38,7 +38,7 @@ const CreateCredentialBtn = ({collectionId,getCreds}:props) => {
     setUsername("")
 
   }
-
+  console.log("currId : ",collectionId)
   return (
 
     <Box>
@@ -86,7 +86,8 @@ const CreateCredentialBtn = ({collectionId,getCreds}:props) => {
                     placeholder='Name' 
                     bg={"whitesmoke"} 
                     color={"black"} 
-                    fontFamily={"Silkscreen"} 
+                    fontFamily={"VT323"} 
+                    fontSize={"25px"}
                     border={"1px solid"} 
                     borderRadius={0}
                     minLength={3}
@@ -101,7 +102,8 @@ const CreateCredentialBtn = ({collectionId,getCreds}:props) => {
                     placeholder='Email' 
                     bg={"whitesmoke"} 
                     color={"black"} 
-                    fontFamily={"Silkscreen"} 
+                    fontFamily={"VT323"} 
+                    fontSize={"25px"}
                     border={"1px solid"} 
                     borderRadius={0}
                     minLength={3}
@@ -116,7 +118,8 @@ const CreateCredentialBtn = ({collectionId,getCreds}:props) => {
                     placeholder='Username' 
                     bg={"whitesmoke"} 
                     color={"black"} 
-                    fontFamily={"Silkscreen"} 
+                    fontFamily={"VT323"} 
+                    fontSize={"25px"}
                     border={"1px solid"} 
                     borderRadius={0}
                     minLength={3}
@@ -131,7 +134,8 @@ const CreateCredentialBtn = ({collectionId,getCreds}:props) => {
                     placeholder='Password' 
                     bg={"whitesmoke"} 
                     color={"black"} 
-                    fontFamily={"Silkscreen"} 
+                    fontFamily={"VT323"}
+                    fontSize={"25px"} 
                     border={"1px solid"} 
                     borderRadius={0}
                     minLength={3}

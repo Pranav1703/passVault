@@ -9,15 +9,20 @@
 @font-face {
     font-family: Pixelify Sans;
     font-weight: 400;
-    src: url('../assets//fonts/PixelifySans-VariableFont_wght.ttf');
+    src: url('../assets/fonts/PixelifySans-VariableFont_wght.ttf');
 }
 
 @font-face {
   font-family: Silkscreen;
   font-weight: 400;
-  src: url('../assets//fonts/Silkscreen-Regular.ttf');
+  src: url('../assets/fonts/Silkscreen-Regular.ttf');
 }
 
+@font-face {
+  font-family: VT323;
+  font-weight: 400;
+  src: url("../assets/fonts/VT323-Regular.ttf");
+}
 
 ::-webkit-scrollbar{
     width: 5px;
