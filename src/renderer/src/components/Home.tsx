@@ -1,5 +1,3 @@
-
-import CredBox from './CredBox'
 import HomeContent from './HomeContent'
 import { Box } from '@chakra-ui/react'
 
