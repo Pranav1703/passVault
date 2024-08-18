@@ -1,4 +1,4 @@
-import { Box, Button, Text } from '@chakra-ui/react'
+import { Box, Button, Input, Text } from '@chakra-ui/react'
 
 type CardProps = {
   id: number
@@ -52,17 +52,20 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
       >
         Email:
       </Text>
-      <Text
-      gridArea={"2 / 2 / 3 / 3"}
-      bg={"#1c1c1c"}
-      p={"5px"}
-      display={"flex"}
-      alignItems={"center"}
-      h={"80%"}
-      alignSelf={"center"}
-      >
-        {email}
-      </Text>
+
+      <Input
+        gridArea={"2 / 2 / 3 / 3"}
+        bg={"#1c1c1c"}
+        p={"5px"}
+        display={"flex"}
+        alignItems={"center"}
+        h={"80%"}
+        alignSelf={"center"}
+        borderRadius={0}
+        border={"none"}
+        value={email}
+      />
+
 
       <Text
       gridArea={"3 / 1 / 4 / 2"}
@@ -71,17 +74,19 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
       >
         UserName:
       </Text>
-      <Text
-      gridArea={"3 / 2 / 4 / 3"}
-      bg={"#1c1c1c"}
-      p={"5px"}
-      display={"flex"}
-      alignItems={"center"}
-      h={"80%"}
-      alignSelf={"center"}
-      >
-        {username}
-      </Text>
+
+      <Input
+        gridArea={"3 / 2 / 4 / 3"}
+        bg={"#1c1c1c"}
+        p={"5px"}
+        display={"flex"}
+        alignItems={"center"}
+        h={"80%"}
+        alignSelf={"center"}
+        borderRadius={0}
+        border={"none"}
+        value={username}
+      />
 
       <Text
       gridArea={"4 / 1 / 5 / 2"}
@@ -90,17 +95,19 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
       >
         Password:
       </Text>
-      <Text
-      gridArea={"4 / 2 / 5 / 3"}
-      bg={"#1c1c1c"}
-      p={"5px"}
-      display={"flex"}
-      alignItems={"center"}
-      h={"80%"}
-      alignSelf={"center"}
-      >
-        {password}
-      </Text>
+
+      <Input
+        gridArea={"4 / 2 / 5 / 3"}
+        bg={"#1c1c1c"}
+        p={"5px"}
+        display={"flex"}
+        alignItems={"center"}
+        h={"80%"}
+        alignSelf={"center"}
+        borderRadius={0}
+        border={"none"}
+        value={password}
+      />
 
       <Box
       gridArea={"5 / 1 / 6 / 3"}

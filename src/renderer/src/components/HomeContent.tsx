@@ -141,6 +141,13 @@ const HomeContent = () => {
         <CreateCollectionModal setNewCollectionName={setNewCollectionName} createNewCollection={createNewCollection}/>
         <CreateCredentialBtn collectionId={currId} getCreds={getCredentails}/>
         <CredBox credList={credentialList} getCreds={getCredentails}/>
+        {
+          currId===-1?(
+              <p>Click on any collection in the list to show the credentials.</p>
+          ):(
+            null
+          )
+        }
       </Box>
     </Box>
   )
