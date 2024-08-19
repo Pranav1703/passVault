@@ -10,6 +10,14 @@ type Credential = {
     collectionId: number
 }
 
+export type EditPayload = {
+    credId:number
+    name?:string
+    username?:string
+    email?:string
+    password?:string
+}
+
 export const registerCredIpcHandlers = ()=>{
     ipcMain.handle("create-cred",async(_event,collectionId:number,name:string,email:string,username:string,password:string)=>{
         
@@ -43,6 +51,10 @@ export const registerCredIpcHandlers = ()=>{
             return collection.creds
         }
         return []
+    })
+
+    ipcMain.handle("edit-cred",async(_event,payload:EditPayload)=>{
+        console.log(payload)
     })
 
     ipcMain.handle("delete-cred",async(_event,credId:number)=>{

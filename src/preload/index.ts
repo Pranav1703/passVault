@@ -1,4 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron'
+import { EditPayload } from '../main/ipcHandlers/cred_IpcHandlers'
 
 // Custom APIs for renderer
 
@@ -13,13 +14,14 @@ if (process.contextIsolated) {
       ping: ()=>ipcRenderer.send("ping"),
       // Create: (n:number,s:string)=>ipcRenderer.invoke("test-db-insert",n,s),
       // GetData: ()=> ipcRenderer.invoke("test-db-showAll")
-      createCollection: (collectionName:string)=>ipcRenderer.invoke("create-collection",collectionName),
-      deleteCollection: (deleteId:number)=>ipcRenderer.invoke("delete-collection",deleteId),
-      getAllCollections: ()=> ipcRenderer.invoke("get-collections"),
+      createCollection:   (collectionName:string)=>ipcRenderer.invoke("create-collection",collectionName),
+      deleteCollection:   (deleteId:number)=>ipcRenderer.invoke("delete-collection",deleteId),
+      getAllCollections:  ()=> ipcRenderer.invoke("get-collections"),
 
-      createCredential: (collectionId:number,name:string,email:string,username:string,password:string)=>ipcRenderer.invoke("create-cred",collectionId,name,email,username,password),
-      getAllCredentials: (collectionId:number)=>ipcRenderer.invoke("get-credentials",collectionId),
-      deleteCredential: (credId:number)=> ipcRenderer.invoke("delete-cred",credId)
+      createCredential:   (collectionId:number,name:string,email:string,username:string,password:string)=>ipcRenderer.invoke("create-cred",collectionId,name,email,username,password),
+      getAllCredentials:  (collectionId:number)=>ipcRenderer.invoke("get-credentials",collectionId),
+      editCredential:     (payload:EditPayload)=>ipcRenderer.invoke("edit-cred",payload),
+      deleteCredential:   (credId:number)=> ipcRenderer.invoke("delete-cred",credId)
     })
   } catch (error) {
     console.error(error)

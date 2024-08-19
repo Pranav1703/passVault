@@ -1,4 +1,5 @@
 import { Box, Button, Input, Text } from '@chakra-ui/react'
+import { useState } from 'react'
 
 type CardProps = {
   id: number
@@ -11,6 +12,11 @@ type CardProps = {
 
 const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
 
+  const [nameChange,setNameChange] = useState<string>(name)
+  const [emailChange,setEmailChange] = useState<string>(email)
+  const [usernameChange,setUsernameChange] = useState<string>(username)
+  const [passwordChange,setPasswordChange] = useState<string>(password)
+ 
   const deleteCred = async()=>{
     try {
       await window.api.deleteCredential(id)
@@ -36,14 +42,15 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
     fontFamily={`"VT323",monospace`}
     >
 
-      <Text 
-      textAlign={'center'} 
-      fontSize={"2xl"} 
-      w={"100%"}
-      gridArea={"1 / 1 / 2 / 3"}
-      >
-        {name}
-      </Text>
+      <Input
+        textAlign={'center'} 
+        fontSize={"2xl"} 
+        w={"100%"}
+        gridArea={"1 / 1 / 2 / 3"}
+        border={"none"}
+        value={nameChange}
+        onChange={(event)=>setNameChange(event.target.value)}
+      />
 
       <Text
       gridArea={"2 / 1 / 3 / 2"}
@@ -63,7 +70,8 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
         alignSelf={"center"}
         borderRadius={0}
         border={"none"}
-        value={email}
+        value={emailChange}
+        onChange={(event)=>setEmailChange(event.target.value)}
       />
 
 
@@ -85,7 +93,8 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
         alignSelf={"center"}
         borderRadius={0}
         border={"none"}
-        value={username}
+        value={usernameChange}
+        onChange={(event)=>setUsernameChange(event.target.value)}
       />
 
       <Text
@@ -106,7 +115,8 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
         alignSelf={"center"}
         borderRadius={0}
         border={"none"}
-        value={password}
+        value={passwordChange}
+        onChange={(event)=>setPasswordChange(event.target.value)}
       />
 
       <Box
