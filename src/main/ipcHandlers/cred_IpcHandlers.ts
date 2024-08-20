@@ -54,7 +54,7 @@ export const registerCredIpcHandlers = ()=>{
     })
 
     ipcMain.handle("edit-cred",async(_event,payload:EditPayload)=>{
-        console.log(payload)
+        console.log("recieved payload form renderer: ",payload)
     })
 
     ipcMain.handle("delete-cred",async(_event,credId:number)=>{

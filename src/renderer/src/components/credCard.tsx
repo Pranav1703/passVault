@@ -10,6 +10,14 @@ type CardProps = {
   getCreds: ()=>Promise<void>
 }
 
+type EditPayload = {
+  credId:number
+  name?:string
+  username?:string
+  email?:string
+  password?:string
+}
+
 const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
 
   const [nameChange,setNameChange] = useState<string>(name)
@@ -27,6 +35,20 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
       console.log(error)
     }
   }
+
+  const editCred = async()=>{
+    let editData:EditPayload = {
+      credId: id,
+      name: nameChange,
+      email: emailChange,
+      username: usernameChange,
+      password: passwordChange
+    }
+
+    window.api.editCredential(editData)
+
+  }
+  
 
 
   return (
@@ -126,13 +148,13 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
       >
         <Button
         borderRadius={0}
+        onClick={editCred}
         >
           Edit
         </Button>
         <Button
         borderRadius={0}
         onClick={deleteCred}
-        m={0}
         >
           Delete
         </Button>
