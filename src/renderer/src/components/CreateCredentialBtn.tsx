@@ -38,7 +38,6 @@ const CreateCredentialBtn = ({collectionId,getCreds}:props) => {
     setUsername("")
 
   }
-  console.log("currId : ",collectionId)
   return (
 
     <Box>

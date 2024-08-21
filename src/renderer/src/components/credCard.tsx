@@ -1,4 +1,4 @@
-import { Box, Button, Input, Text } from '@chakra-ui/react'
+import { Box, Button, Input, InputGroup, InputRightElement, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 
 type CardProps = {
@@ -25,11 +25,13 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
   const [usernameChange,setUsernameChange] = useState<string>(username)
   const [passwordChange,setPasswordChange] = useState<string>(password)
  
+  const [show,setShow] = useState<boolean>(false)
+  const handleShow = ()=> setShow(!show)
+
   const deleteCred = async()=>{
     try {
       await window.api.deleteCredential(id)
       getCreds()
-      .then(()=>console.log("called getCred"))
       .catch((err)=>console.log(err))
     } catch (error) {
       console.log(error)
@@ -45,8 +47,15 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
       password: passwordChange
     }
 
-    window.api.editCredential(editData)
 
+    try {
+      await window.api.editCredential(editData)  
+      getCreds()
+        .catch((err)=>console.log(err))
+    } catch (error) {
+      console.log(error)
+    }
+    
   }
   
 
@@ -126,20 +135,28 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
       >
         Password:
       </Text>
+      <InputGroup>
+        <Input
+          gridArea={"4 / 2 / 5 / 3"}
+          bg={"#1c1c1c"}
+          p={"5px"}
+          display={"flex"}
+          alignItems={"center"}
+          h={"80%"}
+          alignSelf={"center"}
+          borderRadius={0}
+          border={"none"}
+          value={passwordChange}
+          onChange={(event)=>setPasswordChange(event.target.value)}
+          type={show ? 'text' : 'password'}
+        />
+        <InputRightElement width='4.5rem'>
+          <Button size='xs' onClick={handleShow} borderRadius={0}>
+            {show ? 'Hide' : 'Show'}
+          </Button>
+        </InputRightElement>
+      </InputGroup>
 
-      <Input
-        gridArea={"4 / 2 / 5 / 3"}
-        bg={"#1c1c1c"}
-        p={"5px"}
-        display={"flex"}
-        alignItems={"center"}
-        h={"80%"}
-        alignSelf={"center"}
-        borderRadius={0}
-        border={"none"}
-        value={passwordChange}
-        onChange={(event)=>setPasswordChange(event.target.value)}
-      />
 
       <Box
       gridArea={"5 / 1 / 6 / 3"}

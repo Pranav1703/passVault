@@ -59,13 +59,11 @@ const HomeContent = () => {
 
   useEffect(() => {
     getAllCollections()
-      .then(()=>console.log("called getAllCollection"))
       .catch(err=>console.log(err))
 
     
     if(currId != -1){
       getCredentails()
-        .then(()=>console.log("called getCred"))
         .catch((err)=>console.log(err))
     }
 

@@ -43,6 +43,7 @@ export const registerCredIpcHandlers = ()=>{
             include: {
                 creds: true
             }
+            
         })
         if(!collection){return []}
         
@@ -54,7 +55,24 @@ export const registerCredIpcHandlers = ()=>{
     })
 
     ipcMain.handle("edit-cred",async(_event,payload:EditPayload)=>{
-        console.log("recieved payload form renderer: ",payload)
+        console.log("recieved payload from renderer: ",payload)
+        try {
+            const editedRecord = await prisma.credential.update({
+                where:{
+                    id:payload.credId
+                },
+                data: {
+                    name:  payload.name,
+                    email: payload.email,
+                    username: payload.username,
+                    password: payload.password
+                },
+            })
+            console.log("edited record: ",editedRecord)
+        } catch (error) {
+            console.log(error)
+        }
+        
     })
 
     ipcMain.handle("delete-cred",async(_event,credId:number)=>{
