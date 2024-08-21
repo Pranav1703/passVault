@@ -1,5 +1,6 @@
 import { ipcMain } from "electron"
 import { prisma } from "../prismaClient"
+import { createCipheriv, randomBytes } from 'node:crypto';
 
 type Credential = {
     id: number
@@ -83,5 +84,14 @@ export const registerCredIpcHandlers = ()=>{
         })
 
         console.log("delete credential: ",deletedCred)
+    })
+
+    ipcMain.handle("genKeyAndIv",async(_event)=>{
+        const key = randomBytes(32).toString('hex');
+
+        const iv = randomBytes(16).toString('hex');
+
+        console.log(`ENCRYPTION_KEY=${key}`);
+        console.log(`ENCRYPTION_IV=${iv}`);
     })
 }

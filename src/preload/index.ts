@@ -21,7 +21,9 @@ if (process.contextIsolated) {
       createCredential:   (collectionId:number,name:string,email:string,username:string,password:string)=>ipcRenderer.invoke("create-cred",collectionId,name,email,username,password),
       getAllCredentials:  (collectionId:number)=>ipcRenderer.invoke("get-credentials",collectionId),
       editCredential:     (payload:EditPayload)=>ipcRenderer.invoke("edit-cred",payload),
-      deleteCredential:   (credId:number)=> ipcRenderer.invoke("delete-cred",credId)
+      deleteCredential:   (credId:number)=> ipcRenderer.invoke("delete-cred",credId),
+
+      genKeyAndIv:        ()=>ipcRenderer.invoke("genKeyAndIv")
     })
   } catch (error) {
     console.error(error)
