@@ -23,7 +23,6 @@ if (process.contextIsolated) {
       editCredential:     (payload:EditPayload)=>ipcRenderer.invoke("edit-cred",payload),
       deleteCredential:   (credId:number)=> ipcRenderer.invoke("delete-cred",credId),
 
-      genKeyAndIv:        ()=>ipcRenderer.invoke("genKeyAndIv")
     })
   } catch (error) {
     console.error(error)

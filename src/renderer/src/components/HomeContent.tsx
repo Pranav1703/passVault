@@ -53,8 +53,12 @@ const HomeContent = () => {
   }
 
   const getCredentails = async()=>{
-    const credentials = await window.api.getAllCredentials(currId)
-    setCredentialList(credentials)
+    try {
+      const credentials = await window.api.getAllCredentials(currId)
+      setCredentialList(credentials)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {

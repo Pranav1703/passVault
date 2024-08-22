@@ -1,6 +1,7 @@
 import { ipcMain } from "electron"
 import { prisma } from "../prismaClient"
-import { createCipheriv, randomBytes } from 'node:crypto';
+import {createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
+import "dotenv/config"
 
 type Credential = {
     id: number
@@ -19,15 +20,42 @@ export type EditPayload = {
     password?:string
 }
 
+const algorithm = 'aes-256-cbc';
+const HexKey = process.env.ENCRYPTION_KEY as string
+const HexIv = process.env.ENCRYPTION_IV as string
+
+const key = Buffer.from(HexKey,"hex")
+const iv = Buffer.from(HexIv,"hex")
+
+const encryptPassword = (pass:string):string=>{
+
+
+    const cipher = createCipheriv(algorithm, key, iv);
+    let encryptedPassword = cipher.update(pass, 'utf8', 'hex');
+    encryptedPassword += cipher.final('hex');
+    console.log("encrypted password: ",encryptedPassword)
+    return encryptedPassword
+}
+
+const decryptPassword = (encryptedPassword:string):string=>{
+
+    const decipher = createDecipheriv(algorithm,key,iv)
+    let decryptedPassword = decipher.update(encryptedPassword,"hex","utf-8")
+    decryptedPassword+=decipher.final("utf-8")
+    console.log("decrypted password :",decryptedPassword)
+    return decryptedPassword
+}
+
 export const registerCredIpcHandlers = ()=>{
     ipcMain.handle("create-cred",async(_event,collectionId:number,name:string,email:string,username:string,password:string)=>{
         
+        const encryptedPass = encryptPassword(password)
         const cred = await prisma.credential.create({
             data:{
                 name: name,
                 email:email,
                 username: username,
-                password:password,
+                password: encryptedPass,
                 collectionId: collectionId
             }
         })
@@ -46,10 +74,14 @@ export const registerCredIpcHandlers = ()=>{
             }
             
         })
-        if(!collection){return []}
         
         if(collection?.creds){
-            console.log("credentials with collection Id - ",collectionId," : ",collection.creds)
+            
+            for(const cred of collection.creds){
+                const decryptedPass = decryptPassword(cred.password)
+                cred.password = decryptedPass
+            }
+
             return collection.creds
         }
         return []
@@ -86,12 +118,4 @@ export const registerCredIpcHandlers = ()=>{
         console.log("delete credential: ",deletedCred)
     })
 
-    ipcMain.handle("genKeyAndIv",async(_event)=>{
-        const key = randomBytes(32).toString('hex');
-
-        const iv = randomBytes(16).toString('hex');
-
-        console.log(`ENCRYPTION_KEY=${key}`);
-        console.log(`ENCRYPTION_IV=${iv}`);
-    })
 }

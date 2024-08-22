@@ -29,6 +29,7 @@
     "@prisma/client": "^5.18.0",
     "audit": "^0.0.6",
     "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
     "electron-updater": "^6.1.7",
     "express": "^4.19.2",
     "install": "^0.13.0",

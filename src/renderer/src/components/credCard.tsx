@@ -57,8 +57,6 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
     }
     
   }
-  
-
 
   return (
     <Box
@@ -150,7 +148,7 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
           onChange={(event)=>setPasswordChange(event.target.value)}
           type={show ? 'text' : 'password'}
         />
-        <InputRightElement width='4.5rem'>
+        <InputRightElement width='2rem'>
           <Button size='xs' onClick={handleShow} borderRadius={0}>
             {show ? 'Hide' : 'Show'}
           </Button>
@@ -162,16 +160,21 @@ const CredCard = ({id,name,email,username,password,getCreds}:CardProps) => {
       gridArea={"5 / 1 / 6 / 3"}
       display={"flex"}
       justifyContent={"space-between"}
+      alignItems={"center"}
+
       >
         <Button
         borderRadius={0}
         onClick={editCred}
+        size={"sm"}
         >
           Edit
         </Button>
+
         <Button
         borderRadius={0}
         onClick={deleteCred}
+        size={"sm"}
         >
           Delete
         </Button>
