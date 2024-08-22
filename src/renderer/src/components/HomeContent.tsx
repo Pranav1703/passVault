@@ -36,7 +36,6 @@ const HomeContent = () => {
   const [credentialList,setCredentialList] = useState<Array<Credential>>([])
 
   const createNewCollection = async()=>{
-    
     try {
       await window.api.createCollection(newCollectionName)
       await getAllCollections()
@@ -66,10 +65,16 @@ const HomeContent = () => {
       .catch(err=>console.log(err))
 
     
-    if(currId != -1){
+    if(currId !== -1){
       getCredentails()
         .catch((err)=>console.log(err))
     }
+
+    // if(currId===-1){
+    //   setDisableBtn(true)
+    // }else{
+    //   setDisableBtn(false)
+    // }
 
   }, [collectionList.length,currId])
   

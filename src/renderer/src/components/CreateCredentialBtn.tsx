@@ -50,6 +50,7 @@ const CreateCredentialBtn = ({collectionId,getCreds}:props) => {
           }
         }}
         border={"2px solid grey"}
+        disabled={collectionId===-1}
         >
           New Credentials
         </Button>
@@ -58,7 +59,7 @@ const CreateCredentialBtn = ({collectionId,getCreds}:props) => {
             onClose={onClose}
             isOpen={isOpen}
             motionPreset='slideInBottom'
-
+            
           >
             <ModalOverlay backdropFilter={"auto"} backdropBlur={"25px"}/>
             <ModalContent

@@ -1,6 +1,6 @@
 import { ipcMain } from "electron"
 import { prisma } from "../prismaClient"
-import {createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
+import {createCipheriv, createDecipheriv } from 'node:crypto';
 import "dotenv/config"
 
 type Credential = {
@@ -29,20 +29,17 @@ const iv = Buffer.from(HexIv,"hex")
 
 const encryptPassword = (pass:string):string=>{
 
-
     const cipher = createCipheriv(algorithm, key, iv);
     let encryptedPassword = cipher.update(pass, 'utf8', 'hex');
     encryptedPassword += cipher.final('hex');
-    console.log("encrypted password: ",encryptedPassword)
     return encryptedPassword
 }
 
 const decryptPassword = (encryptedPassword:string):string=>{
-
+    
     const decipher = createDecipheriv(algorithm,key,iv)
-    let decryptedPassword = decipher.update(encryptedPassword,"hex","utf-8")
-    decryptedPassword+=decipher.final("utf-8")
-    console.log("decrypted password :",decryptedPassword)
+    let decryptedPassword = decipher.update(encryptedPassword,"hex","utf8")
+    decryptedPassword+=decipher.final("utf8")
     return decryptedPassword
 }
 
@@ -88,7 +85,9 @@ export const registerCredIpcHandlers = ()=>{
     })
 
     ipcMain.handle("edit-cred",async(_event,payload:EditPayload)=>{
-        console.log("recieved payload from renderer: ",payload)
+
+        const encryptedPass = encryptPassword(payload.password!)
+        payload.password = encryptedPass
         try {
             const editedRecord = await prisma.credential.update({
                 where:{
