@@ -1,18 +1,10 @@
-import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
+import { app, shell, BrowserWindow, ipcMain} from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { registerCollectionIpcHandlers } from './ipcHandlers/collection_ipcHandlers'
 import { registerCredIpcHandlers } from './ipcHandlers/cred_IpcHandlers'
 
-
-async function handleFileOpen ():Promise<string> {
-  const { canceled, filePaths } = await dialog.showOpenDialog({})
-  if (!canceled) {
-    return filePaths[0]
-  }
-  return ""
-}
 
 function createWindow(): void {
   // Create the browser window.
@@ -69,12 +61,10 @@ app.whenReady().then(() => {
   })
 
   ipcMain.on('ping', () => console.log('response: pong'))
-  ipcMain.handle("dialog:openFile",handleFileOpen)
   registerCollectionIpcHandlers()
   registerCredIpcHandlers()
 
   createWindow()
-
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.

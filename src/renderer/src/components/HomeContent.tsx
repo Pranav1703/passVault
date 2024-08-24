@@ -150,7 +150,7 @@ const HomeContent = () => {
         <CredBox credList={credentialList} getCreds={getCredentails}/>
         {
           currId===-1?(
-              <p>Click on any collection in the list to show the credentials.</p>
+              <p>Click on any collection in the list to show the credentials, <br /> Then only you can create new credentials</p>
           ):(
             null
           )
