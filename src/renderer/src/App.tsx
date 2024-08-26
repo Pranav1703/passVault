@@ -5,9 +5,6 @@ import Home from "./components/Home"
 
 function App(){
 
-  console.log(window.api.log())
-  
-
   return (
     <>
       <HashRouter>

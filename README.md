@@ -16,17 +16,16 @@ Create a .env file in the root directory.
 Add the following environment variables.
 
 ```
-DB_URL=<YOUR LOCAL POSTGRES DATABASE CONNECTION URL>
+PROD_DB_URL=<YOUR LOCAL POSTGRES DATABASE CONNECTION URL>
 
 ```
 two random hex strings are used in the aes algorithm to encrypt passwords. One is encryption key which is 64 characters long and other one is called IV(initialization vector) which is 32 characters long.
 
 These keys/random strings are required for encrypting the password using aes-256-cbc algorithm for security. By default these keys are set in the project.
 
-You can also Generate 32 and 64 character random Hex string [HERE](https://www.browserling.com/tools/random-hex) or any random hex generator website and add it in the project.
+You can also Generate 32 and 64 character random Hex string [HERE](https://www.browserling.com/tools/random-hex) or from any random hex generator website and add those two strings as keys.
 
 Add your generated keys in keys.ts file which is at src\main folder.
-
 
 
 ## Development
@@ -47,4 +46,6 @@ $ npm run build:mac
 # For Linux
 $ npm run build:linux
 ```
-Build is successfull but the app is not functioning properly. Needs fixes.
+
+### build status
+[x] working with no issues
