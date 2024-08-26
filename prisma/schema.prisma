@@ -6,14 +6,14 @@
 
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = ["native","darwin","debian-openssl-1.1.x","linux-musl"]
+  binaryTargets = ["native","darwin","debian-openssl-1.1.x","linux-musl","windows"]
   output   = "../src/main/prismaClient"
   previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DB_URL")
+  url      = env("PROD_DB_URL")
 }
 
 model credential{

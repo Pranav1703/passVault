@@ -4,6 +4,7 @@ import {createCipheriv, createDecipheriv } from 'node:crypto';
 import "dotenv/config"
 import { ENCRYPTION_KEY,ENCRYPTION_Iv } from "../keys";
 
+
 type Credential = {
     id: number
     name: string

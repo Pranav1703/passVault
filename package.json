@@ -20,7 +20,7 @@
     "build:mac": "electron-vite build && electron-builder --mac",
     "build:linux": "electron-vite build && electron-builder --linux"
   },
-  "build":{
+  "build": {
     "extraResources": [
       "prisma/**/*",
       "node_modules/.prisma/**/*",
@@ -35,7 +35,6 @@
     "@prisma/adapter-pg": "^5.18.0",
     "@prisma/client": "^5.18.0",
     "audit": "^0.0.6",
-    "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
     "electron-updater": "^6.1.7",
     "express": "^4.19.2",
@@ -63,5 +62,8 @@
     "react-dom": "^18.3.1",
     "typescript": "^5.5.2",
     "vite": "^5.3.1"
+  },
+  "browser": {
+    "crypto": false
   }
 }

@@ -47,4 +47,4 @@ $ npm run build:mac
 # For Linux
 $ npm run build:linux
 ```
-Build is successfull but the app is not functioning properly. Need fixes.
+Build is successfull but the app is not functioning properly. Needs fixes.

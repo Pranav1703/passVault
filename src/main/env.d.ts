@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 interface ImportMetaEnv {
-    readonly MAIN_VITE_KEY:string
+    readonly MAIN_VITE_DB:string
     
 }
 
