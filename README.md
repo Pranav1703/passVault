@@ -46,6 +46,3 @@ $ npm run build:mac
 # For Linux
 $ npm run build:linux
 ```
-
-### build status
-[x] working with no issues
