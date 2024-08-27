@@ -1,7 +1,7 @@
 {
   "name": "pass-vault",
   "version": "1.0.0",
-  "description": "An Electron application with React and TypeScript",
+  "description": "Store your passwords safely in your local machine.",
   "main": "./out/main/index.js",
   "author": "Just A regular Dev",
   "homepage": "https://electron-vite.org",

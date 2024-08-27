@@ -46,3 +46,8 @@ $ npm run build:mac
 # For Linux
 $ npm run build:linux
 ```
+
+The app opens normally, but doesn't work as intended(like creating a collection or cred doesn't work) since this project uses local postgres database.
+
+need to use postgres cloud database/host my database. currently cant do that.
+so for now, add your local postgres db url in env file and build the project, Then u can run the setup.exe in dist folder to install the app in your PC.
