@@ -16,7 +16,7 @@ Create a .env file in the root directory.
 Add the following environment variables.
 
 ```
-PROD_DB_URL=<YOUR LOCAL POSTGRES DATABASE CONNECTION URL>
+MAIN_VITE_DB=<YOUR LOCAL POSTGRES DATABASE CONNECTION URL>
 
 ```
 two random hex strings are used in the aes algorithm to encrypt passwords. One is encryption key which is 64 characters long and other one is called IV(initialization vector) which is 32 characters long.

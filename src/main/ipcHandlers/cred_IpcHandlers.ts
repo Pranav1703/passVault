@@ -3,7 +3,7 @@ import { prisma } from "../prismaClient"
 import {createCipheriv, createDecipheriv } from 'node:crypto';
 import "dotenv/config"
 import { ENCRYPTION_KEY,ENCRYPTION_Iv } from "../keys";
-
+import { CipherKey, BinaryLike } from "node:crypto";
 
 type Credential = {
     id: number
@@ -26,12 +26,12 @@ const algorithm = 'aes-256-cbc';
 // const HexKey = process.env.ENCRYPTION_KEY as string
 // const HexIv = process.env.ENCRYPTION_IV as string
 
-// if (!HexKey || !HexIv) {
-//     throw new Error("ENCRYPTION_KEY or ENCRYPTION_IV is not set");
-// }
+const key = Buffer.from(ENCRYPTION_KEY,"hex") as CipherKey
+const iv = Buffer.from(ENCRYPTION_Iv,"hex") as BinaryLike
 
-const key = Buffer.from(ENCRYPTION_KEY,"hex")
-const iv = Buffer.from(ENCRYPTION_Iv,"hex")
+if (!key || !iv) {
+    throw new Error("ENCRYPTION_KEY or ENCRYPTION_IV is not set");
+}
 
 const encryptPassword = (pass:string):string=>{
 

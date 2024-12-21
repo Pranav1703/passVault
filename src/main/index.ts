@@ -4,6 +4,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { registerCollectionIpcHandlers } from './ipcHandlers/collection_ipcHandlers'
 import { registerCredIpcHandlers } from './ipcHandlers/cred_IpcHandlers'
+import { registerUserIpcHandlers } from './ipcHandlers/user_ipcHandler'
 
 
 function createWindow(): void {
@@ -63,6 +64,7 @@ app.whenReady().then(() => {
   ipcMain.on('ping', () => console.log('response: pong'))
   registerCollectionIpcHandlers()
   registerCredIpcHandlers()
+  registerUserIpcHandlers()
 
   createWindow()
   app.on('activate', function () {

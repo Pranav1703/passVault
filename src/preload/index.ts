@@ -1,5 +1,8 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { EditPayload } from '../main/ipcHandlers/cred_IpcHandlers'
+import { User } from '../main/ipcHandlers/user_ipcHandler'
+
+
 
 // Custom APIs for renderer
 
@@ -22,6 +25,9 @@ if (process.contextIsolated) {
       getAllCredentials:  (collectionId:number)=>ipcRenderer.invoke("get-credentials",collectionId),
       editCredential:     (payload:EditPayload)=>ipcRenderer.invoke("edit-cred",payload),
       deleteCredential:   (credId:number)=> ipcRenderer.invoke("delete-cred",credId),
+
+      signupUser:         (cred:User)=> ipcRenderer.invoke("signup",cred),
+      loginUser:          (cred:User)=> ipcRenderer.invoke("login",cred)
 
     })
   } catch (error) {
