@@ -2,71 +2,79 @@ import { ipcMain } from "electron"
 import prisma from "../prismaClient"
 
 export type User = {
-    username: string
-    password: string
+    username:   string
+    password:   string
 }
 export type Res = {
-    msg: string | null
-    err: string | null
+    created?:   boolean
+    found?:     boolean
+    err?:       string
 }
 
-
-
 export const registerUserIpcHandlers = ()=>{
-    ipcMain.handle("signup",async(_event,userInfo:User):Promise<Res>=>{
-        const {username,password} = userInfo
-        console.log(username,password)
+    ipcMain.handle("signup",async(_event,userInfo:User):Promise<Res | undefined>=>{
         try {
+            const users = await prisma.user.findMany({
+                where:{
+                    username:userInfo.username
+                }
+            })
+            if(users){
+                return{
+                    err:"user already exists"
+                }
+            }
+            
             const newUser = await prisma.user.create({
                 data:{
-                    username:username,
-                    password:password
+                    username:userInfo.username,
+                    password:userInfo.password
                 }
             })
             if(newUser){
                 return {
-                    msg:"new user created",
-                    err:null
+                    created: true
                 }
             }
+
             
         } catch (error) {
-            console.log("DATABASE ERROR ERROR",error)
-        }
-        return {
-            msg:null,
-            err:"DATABASE ERROR ERROR."
+            console.log("DATABASE ERROR",error)
+            return{
+                err: "database error"
+            }
         }
     })
 
-    ipcMain.handle("login",async(_event,userInfo:User):Promise<Res>=>{
-        const {username,password} = userInfo
+    ipcMain.handle("login",async(_event,userInfo:User):Promise<Res | undefined>=>{
+        
         try {
             const retrievedUser = await prisma.user.findMany({
                 where:{
-                    username:username,
+                    username:userInfo.username,
                 },
             })
             if(!retrievedUser){
                 return {
-                    msg:null,
-                    err:"no user found"
+                    err:"invalid username."
                 }
             }else{
-                if(retrievedUser[0].password === password){
+                if(retrievedUser[0].password === userInfo.password){
                     return {
-                        msg:"user found",
-                        err:null
+                        found:true
+                    }
+                }else{
+                    return{
+                        err:"password incorrect."
                     }
                 }
             }
 
-        } catch (error) {
-            console.log("DATABASE ERROR ERROR",error)
-        }
-        return {
-            msg:null,
-            err:"DATABASE ERROR. Try again"
+        }catch (error) {
+            console.log("DATABASE ERROR",error)
+            return{
+                err: "database error"
+            }
         }
     })
 }
