@@ -1,5 +1,7 @@
 import { 
     Box, 
+    Button, 
+    HStack, 
     Tab,
     TabList,
     Tabs,
@@ -145,7 +147,17 @@ const HomeContent = () => {
       <Box
       w={"100%"}
       >
-        <CreateCollectionModal setNewCollectionName={setNewCollectionName} createNewCollection={createNewCollection}/>
+        <HStack>
+          <Box w={"95%"} p={0} m={0}>
+            <CreateCollectionModal setNewCollectionName={setNewCollectionName} createNewCollection={createNewCollection}/>
+          </Box>
+          <Button 
+          borderRadius={0}
+          borderLeft={"3px solid grey"}
+          >
+              LogOut
+          </Button>
+        </HStack>
         <CreateCredentialBtn collectionId={currId} getCreds={getCredentails}/>
         <CredBox credList={credentialList} getCreds={getCredentails}/>
         {

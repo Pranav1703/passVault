@@ -1,14 +1,28 @@
-import { Box, VStack, Text, Input, Button } from "@chakra-ui/react"
+import { Box, VStack, Text, Input, Button, InputGroup, InputRightElement } from "@chakra-ui/react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-
-
 
 export const Signup = () => {
 
+    const [username,setUsername] = useState("")
+    const [password,setPassword] = useState("")
+    const [errMsg,setErrMsg] = useState("")
     const navigate = useNavigate()
 
-    const signupHandler=()=>{
-        navigate("/")
+
+    const [show,setShow] = useState<boolean>(false)
+    const handleShow = ()=> setShow(!show)
+
+    const signupHandler=async()=>{
+        const resp = await window.api.signupUser({
+            username:username,
+            password:password
+        })
+        if(resp.created){
+            navigate("/")
+        }else if(resp.err){
+            setErrMsg(resp.err)
+        }
     }
 
   return (
@@ -47,26 +61,34 @@ export const Signup = () => {
                 border={"1px solid"} 
                 borderRadius={0}
                 minLength={4}
-                
-                onChange={()=>{}}
+                value={username}
+                onChange={(e)=>setUsername(e.target.value)}
                 />
                 
-                <Input 
-                width={370} 
-                marginRight={0} 
-                paddingLeft={"5px"}
-                placeholder='Password' 
-                bg={"whitesmoke"} 
-                color={"black"} 
-                fontFamily={"Silkscreen"} 
-                fontSize={"20px"}
-                border={"1px solid"} 
-                borderRadius={0}
-                minLength={4}
-                
-                onChange={()=>{}}
-                />
-
+                <InputGroup>
+                    <Input 
+                    width={370} 
+                    marginRight={0} 
+                    paddingLeft={"5px"}
+                    placeholder='Password' 
+                    bg={"whitesmoke"} 
+                    color={"black"} 
+                    fontFamily={"Silkscreen"} 
+                    fontSize={"20px"}
+                    border={"1px solid"} 
+                    borderRadius={0}
+                    minLength={4}
+                    value={password}
+                    onChange={(e)=>setPassword(e.target.value)}
+                    type={show ? 'text' : 'password'}
+                    />
+                    <InputRightElement width='2rem'>
+                        <Button size='xs' onClick={handleShow} borderRadius={0}>
+                        {show ? 'Hide' : 'Show'}
+                        </Button>
+                    </InputRightElement>
+                </InputGroup>
+                <Text textAlign={"center"}>{errMsg}</Text>
                 <Button
                 fontSize={"20px"}
                 borderRadius={0}

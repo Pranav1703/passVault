@@ -9,22 +9,22 @@ export type Res = {
     created?:   boolean
     found?:     boolean
     err?:       string
+    userId?:    number
 }
 
 export const registerUserIpcHandlers = ()=>{
     ipcMain.handle("signup",async(_event,userInfo:User):Promise<Res | undefined>=>{
         try {
-            const users = await prisma.user.findMany({
+            const userExists = await prisma.user.findFirst({
                 where:{
                     username:userInfo.username
                 }
             })
-            if(users){
+            if(userExists){
                 return{
                     err:"user already exists"
                 }
             }
-            
             const newUser = await prisma.user.create({
                 data:{
                     username:userInfo.username,
@@ -32,12 +32,16 @@ export const registerUserIpcHandlers = ()=>{
                 }
             })
             if(newUser){
+                console.log("new user created:",newUser)
                 return {
                     created: true
                 }
+            }else{
+                return{
+                    err:"couldn't create user"
+                }
             }
 
-            
         } catch (error) {
             console.log("DATABASE ERROR",error)
             return{
@@ -49,7 +53,7 @@ export const registerUserIpcHandlers = ()=>{
     ipcMain.handle("login",async(_event,userInfo:User):Promise<Res | undefined>=>{
         
         try {
-            const retrievedUser = await prisma.user.findMany({
+            const retrievedUser = await prisma.user.findFirst({
                 where:{
                     username:userInfo.username,
                 },
@@ -59,9 +63,10 @@ export const registerUserIpcHandlers = ()=>{
                     err:"invalid username."
                 }
             }else{
-                if(retrievedUser[0].password === userInfo.password){
+                if(retrievedUser.password === userInfo.password){
                     return {
-                        found:true
+                        found:true,
+                        userId: retrievedUser.id
                     }
                 }else{
                     return{

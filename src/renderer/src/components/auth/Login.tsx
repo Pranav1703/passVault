@@ -6,13 +6,23 @@ export const Login = () => {
     
     const [username,setUsername] = useState("")
     const [password,setPassword] = useState("")
+    const [errMsg,setErrMsg] = useState("")
     const navigate = useNavigate()
 
     const [show,setShow] = useState<boolean>(false)
     const handleShow = ()=> setShow(!show)
 
     const loginHandler = async()=>{
-        navigate("/home")
+        const resp = await window.api.loginUser({
+            username:username,
+            password:password
+        })
+        if(resp.found){
+            navigate("/home")
+        }else if(resp.err){
+            setErrMsg(resp.err)
+        }
+        
     }
   return (
     <Box
@@ -77,7 +87,7 @@ export const Login = () => {
                         </Button>
                     </InputRightElement>
                 </InputGroup>
-
+                <Text textAlign={"center"}>{errMsg}</Text>
                 <Button
                 fontSize={"20px"}
                 borderRadius={0}

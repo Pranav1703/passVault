@@ -8,11 +8,12 @@ export type collection = {
 
 export const registerCollectionIpcHandlers = ()=>{
 
-    ipcMain.handle("create-collection",async(_event,collectionName:string)=>{
+    ipcMain.handle("create-collection",async(_event,collectionName:string,userId:number)=>{
         try {
             const newCollection = await prisma.collection.create({
                 data:{
-                    name:collectionName
+                    name:collectionName,
+                    userId:userId
                 }
              })
              console.log("collection created :",newCollection)
