@@ -1,7 +1,7 @@
 {
   "name": "pass-vault",
-  "version": "1.0.0",
-  "description": "Store your passwords safely in your local machine.",
+  "version": "1.1",
+  "description": "Store your passwords safely .",
   "main": "./out/main/index.js",
   "author": "Just A regular Dev",
   "homepage": "https://electron-vite.org",
@@ -24,7 +24,8 @@
     "extraResources": [
       "prisma/**/*",
       "node_modules/.prisma/**/*",
-      "node_modules/@prisma/client/**/*"
+      "node_modules/@prisma/client/**/*",
+      "src/main/prismaClient/**/*"
     ]
   },
   "dependencies": {

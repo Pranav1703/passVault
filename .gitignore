@@ -5,3 +5,4 @@ out
 *.log*
 .env
 .env.production
+src/main/prismaClient/
