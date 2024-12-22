@@ -2,6 +2,8 @@ import { Box,Button,Input,InputGroup,InputRightElement,Text, VStack } from "@cha
 import { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "@renderer/App"
+import { BiSolidHide } from "react-icons/bi";
+import { BiSolidShow } from "react-icons/bi";
 
 export const Login = () => {
     
@@ -27,12 +29,12 @@ export const Login = () => {
         }else if(resp.err){
             setErrMsg(resp.err)
         }
-        
     }
+
   return (
     <Box
     h={"100vh"}
-    bgColor={"black"}
+    bgColor={"grey"}
     fontFamily={`"Silkscreen", sans-serif`}
     display={"flex"}
     m={0}
@@ -47,6 +49,7 @@ export const Login = () => {
             <VStack
             h={"100%"}
             justifyContent={"space-evenly"}
+
             >
                 <Text
                 fontSize={"25px"}
@@ -60,7 +63,7 @@ export const Login = () => {
                 placeholder='Username' 
                 bg={"whitesmoke"} 
                 color={"black"} 
-                fontFamily={"Silkscreen"} 
+                fontFamily={`"VT323",monospace`}
                 fontSize={"20px"}
                 border={"1px solid"} 
                 borderRadius={0}
@@ -69,7 +72,10 @@ export const Login = () => {
                 onChange={(e)=>setUsername(e.target.value)}
                 />
                 
-                <InputGroup>
+                <InputGroup
+                display={"flex"}
+                justifyContent={"center"}
+                >
                     <Input 
                     width={370} 
                     marginRight={0} 
@@ -77,18 +83,24 @@ export const Login = () => {
                     placeholder='Password' 
                     bg={"whitesmoke"} 
                     color={"black"} 
-                    fontFamily={"Silkscreen"} 
+                    fontFamily={`"VT323",monospace`}
                     fontSize={"20px"}
                     border={"1px solid"} 
                     borderRadius={0}
+
                     minLength={4}
                     value={password}
                     onChange={(e)=>setPassword(e.target.value)}
                     type={show ? 'text' : 'password'}
                     />
                     <InputRightElement width='2rem'>
-                        <Button size='xs' onClick={handleShow} borderRadius={0}>
-                        {show ? 'Hide' : 'Show'}
+                        <Button size='xs' onClick={handleShow} borderRadius={0} p={0}>
+                        {show ? (
+                                <BiSolidHide style={{color:"black",backgroundColor:"black"}} size={24} width={50}/>
+                            ) : (
+                                <BiSolidShow style={{color:"black",backgroundColor:"black"}} size={24} width={50}/>
+                            )
+                        }
                         </Button>
                     </InputRightElement>
                 </InputGroup>
@@ -101,7 +113,7 @@ export const Login = () => {
                     Login
                 </Button>
                 <Text>
-                    new user? <Link to={"/signup"}> signup</Link>
+                    new user? <Link to={"/signup"}> ➤ signup</Link>
                 </Text>
             </VStack>
         </Box>

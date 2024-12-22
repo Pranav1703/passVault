@@ -1,6 +1,9 @@
-import { Box, VStack, Text, Input, Button, InputGroup, InputRightElement } from "@chakra-ui/react"
+import { Box, VStack, Text, Input, Button, InputGroup, InputRightElement, background } from "@chakra-ui/react"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { BiSolidHide } from "react-icons/bi";
+import { BiSolidShow } from "react-icons/bi";
+
 
 export const Signup = () => {
 
@@ -28,7 +31,7 @@ export const Signup = () => {
   return (
     <Box
     h={"100vh"}
-    bgColor={"black"}
+    bgColor={"grey"}
     fontFamily={`"Silkscreen", sans-serif`}
     display={"flex"}
     m={0}
@@ -56,7 +59,7 @@ export const Signup = () => {
                 placeholder='Username' 
                 bg={"whitesmoke"} 
                 color={"black"} 
-                fontFamily={"Silkscreen"} 
+                fontFamily={`"VT323",monospace`}
                 fontSize={"20px"}
                 border={"1px solid"} 
                 borderRadius={0}
@@ -65,7 +68,10 @@ export const Signup = () => {
                 onChange={(e)=>setUsername(e.target.value)}
                 />
                 
-                <InputGroup>
+                <InputGroup
+                display={"flex"}
+                justifyContent={"center"}
+                >
                     <Input 
                     width={370} 
                     marginRight={0} 
@@ -73,7 +79,7 @@ export const Signup = () => {
                     placeholder='Password' 
                     bg={"whitesmoke"} 
                     color={"black"} 
-                    fontFamily={"Silkscreen"} 
+                    fontFamily={`"VT323",monospace`}
                     fontSize={"20px"}
                     border={"1px solid"} 
                     borderRadius={0}
@@ -82,9 +88,14 @@ export const Signup = () => {
                     onChange={(e)=>setPassword(e.target.value)}
                     type={show ? 'text' : 'password'}
                     />
-                    <InputRightElement width='2rem'>
-                        <Button size='xs' onClick={handleShow} borderRadius={0}>
-                        {show ? 'Hide' : 'Show'}
+                    <InputRightElement width='2rem' p={0}>
+                        <Button size='xs' onClick={handleShow} borderRadius={0} p={0}>
+                        {show ? (
+                                <BiSolidHide style={{color:"black",backgroundColor:"black"}} size={24} width={50}/>
+                            ) : (
+                                <BiSolidShow style={{color:"black",backgroundColor:"black"}} size={24} width={50}/>
+                            )
+                        }
                         </Button>
                     </InputRightElement>
                 </InputGroup>
@@ -96,6 +107,9 @@ export const Signup = () => {
                 >
                     SignUp
                 </Button>
+                <Text>
+                    already a user? <Link to={"/"}> ➤ Login</Link>
+                </Text>
             </VStack>
         </Box>
     </Box>
