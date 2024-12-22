@@ -7,11 +7,13 @@ import {
     Tabs,
     Text,
 } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Collection from './Collection'
 import CredBox from './CredBox'
 import CreateCollectionModal from './CreateCollectionBtn'
 import CreateCredentialBtn from './CreateCredentialBtn'
+import { AuthContext } from '@renderer/App'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -34,12 +36,17 @@ const HomeContent = () => {
   // const { isOpen, onOpen, onClose } = useDisclosure()
   const [newCollectionName,setNewCollectionName] = useState<string>("")
   const [collectionList,setCollectionList] = useState<Array<collection>>([])
-  const [currId,setCurrId] = useState<number>(-1)
+  const [currCollectionId,setCurrCollectionId] = useState<number>(-1)
   const [credentialList,setCredentialList] = useState<Array<Credential>>([])
+
+  const {logout,userId,setId} = useContext(AuthContext)
+
+  const navigate = useNavigate()
 
   const createNewCollection = async()=>{
     try {
-      await window.api.createCollection(newCollectionName)
+      console.log("current user id: ",userId)
+      await window.api.createCollection(newCollectionName,userId)
       await getAllCollections()
     } catch (error) {
       console.log("error when trying to create a collection: ",error)
@@ -47,7 +54,7 @@ const HomeContent = () => {
   }
 
   const getAllCollections = async()=>{
-    const allCollections = await window.api.getAllCollections()
+    const allCollections = await window.api.getAllCollections(userId)
     console.log("retieved: ",allCollections)
     setCollectionList(allCollections)
 
@@ -55,11 +62,17 @@ const HomeContent = () => {
 
   const getCredentails = async()=>{
     try {
-      const credentials = await window.api.getAllCredentials(currId)
+      const credentials = await window.api.getAllCredentials(currCollectionId)
       setCredentialList(credentials)
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const logoutHandler = ()=>{
+    logout()
+    setId(-1)
+    navigate("/")
   }
 
   useEffect(() => {
@@ -67,7 +80,7 @@ const HomeContent = () => {
       .catch(err=>console.log(err))
 
     
-    if(currId !== -1){
+    if(currCollectionId !== -1){
       getCredentails()
         .catch((err)=>console.log(err))
     }
@@ -78,7 +91,7 @@ const HomeContent = () => {
     //   setDisableBtn(false)
     // }
 
-  }, [collectionList.length,currId])
+  }, [collectionList.length,currCollectionId])
   
 
   return (
@@ -131,7 +144,7 @@ const HomeContent = () => {
               {
                 collectionList?.length>0?(
                   collectionList.map((val,index=0)=>(
-                      <Tab key={index++} _selected={{ color: 'white', bg: 'grey' }} p={1} onClick={()=>setCurrId(val.id)}>
+                      <Tab key={index++} _selected={{ color: 'white', bg: 'grey' }} p={1} onClick={()=>setCurrCollectionId(val.id)}>
                         <Collection key={val.id} collectionName={val.name} setList={setCollectionList} id={val.id}/>
                       </Tab>
                     )
@@ -154,14 +167,15 @@ const HomeContent = () => {
           <Button 
           borderRadius={0}
           borderLeft={"3px solid grey"}
+          onClick={logoutHandler}
           >
               LogOut
           </Button>
         </HStack>
-        <CreateCredentialBtn collectionId={currId} getCreds={getCredentails}/>
+        <CreateCredentialBtn collectionId={currCollectionId} getCreds={getCredentails}/>
         <CredBox credList={credentialList} getCreds={getCredentails}/>
         {
-          currId===-1?(
+          currCollectionId===-1?(
               <p>Click on any collection in the list to show the credentials, <br /> Then only you can create new credentials</p>
           ):(
             null

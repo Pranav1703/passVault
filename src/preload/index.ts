@@ -17,9 +17,9 @@ if (process.contextIsolated) {
       ping: ()=>ipcRenderer.send("ping"),
       // Create: (n:number,s:string)=>ipcRenderer.invoke("test-db-insert",n,s),
       // GetData: ()=> ipcRenderer.invoke("test-db-showAll")
-      createCollection:   (collectionName:string)=>ipcRenderer.invoke("create-collection",collectionName),
+      createCollection:   (collectionName:string,userId:number)=>ipcRenderer.invoke("create-collection",collectionName,userId),
       deleteCollection:   (deleteId:number)=>ipcRenderer.invoke("delete-collection",deleteId),
-      getAllCollections:  ()=> ipcRenderer.invoke("get-collections"),
+      getAllCollections:  (id:number)=> ipcRenderer.invoke("get-collections",id),
 
       createCredential:   (collectionId:number,name:string,email:string,username:string,password:string)=>ipcRenderer.invoke("create-cred",collectionId,name,email,username,password),
       getAllCredentials:  (collectionId:number)=>ipcRenderer.invoke("get-credentials",collectionId),

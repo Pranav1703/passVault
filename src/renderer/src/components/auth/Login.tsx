@@ -1,6 +1,7 @@
 import { Box,Button,Input,InputGroup,InputRightElement,Text, VStack } from "@chakra-ui/react"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { AuthContext } from "@renderer/App"
 
 export const Login = () => {
     
@@ -12,12 +13,16 @@ export const Login = () => {
     const [show,setShow] = useState<boolean>(false)
     const handleShow = ()=> setShow(!show)
 
+    const {login,setId} = useContext(AuthContext)
+
     const loginHandler = async()=>{
         const resp = await window.api.loginUser({
             username:username,
             password:password
         })
         if(resp.found){
+            login()
+            setId(resp.userId)
             navigate("/home")
         }else if(resp.err){
             setErrMsg(resp.err)

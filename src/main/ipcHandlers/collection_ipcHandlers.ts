@@ -13,7 +13,11 @@ export const registerCollectionIpcHandlers = ()=>{
             const newCollection = await prisma.collection.create({
                 data:{
                     name:collectionName,
-                    userId:userId
+                    user:{
+                        connect:{
+                            id: userId
+                        }
+                    }
                 }
              })
              console.log("collection created :",newCollection)
@@ -31,9 +35,13 @@ export const registerCollectionIpcHandlers = ()=>{
         console.log("deleted :",deleted)
     })
 
-    ipcMain.handle("get-collections",async():Promise<collection[]>=>{
+    ipcMain.handle("get-collections",async(_event,id:number):Promise<collection[]>=>{
         try {
-            const allCollections:collection[] = await prisma.collection.findMany()
+            const allCollections:collection[] = await prisma.collection.findMany({
+                where:{
+                    userId: id
+                }
+            })
             return allCollections
         } catch (error) {
             console.log("couldn't retrieve all collections. ,",error)
