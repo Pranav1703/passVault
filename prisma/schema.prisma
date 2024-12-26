@@ -8,7 +8,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("MAIN_VITE_LOCAL_DB")
+  url      = env("MAIN_VITE_DIRECT_URL")
 }
 
 model credential {

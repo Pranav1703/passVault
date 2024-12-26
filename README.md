@@ -7,24 +7,32 @@
 ### Requirements to develop/ run locally with source code
 postgres should be installed in the system. [DownloadLink](https://www.postgresql.org/download/)
 
-### Setup
-
-```bash
-$ npm install
-```
 
 ## Development
 
-### to use local database
+### To use local database
 
 Create a .env file in the root directory.
 Add the following environment variables.
 
 ```
 MAIN_VITE_LOCAL_DB=<YOUR LOCAL POSTGRES DATABASE CONNECTION URL>
-
 ```
+
+and change db url in prismaClient.ts file which is in src/main/ to
+```
+    db: {
+        url: import.meta.env.MAIN_VITE_LOCAL_DB
+    }
+```
+
 no need to explictly generate the prisma client, the client is generated after installing node_modules.
+
+### Setup
+
+```bash
+$ npm install
+```
 
 ### Encryption Keys
 two random hex strings are used in the aes algorithm to encrypt passwords. One is encryption key which is 64 characters long and other one is called IV(initialization vector) which is 32 characters long.
@@ -35,7 +43,7 @@ You can also Generate 32 and 64 character random Hex string [HERE](https://www.b
 
 Add your generated keys in keys.ts file which is at src\main folder.
 
-### start the app 
+### Start the app 
 
 ```bash
 $ npm run dev

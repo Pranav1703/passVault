@@ -1,5 +1,5 @@
 import { ipcMain } from "electron"
-import prisma from "../prismaClient"
+import { prisma } from "../prismaClient"
 
 export type User = {
     username:   string
